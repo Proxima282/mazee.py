@@ -1,8 +1,8 @@
 from pygame import*
-from time import*
+from time import sleep
 init()
 class GameSprite(sprite.Sprite):
-    def init(self,img,x,y,w,h):
+    def __init__(self,img,x,y,w,h):
         super().__init__()
         self.image = transform.scale(image.load(img), (w,h))
         self.rect = self.image.get_rect()
@@ -28,7 +28,7 @@ class Player(GameSprite):
 
     
 class Enemy(GameSprite):
-    directiom = "left"
+    direction = "left"
     def moving(self):
         if self.rect.x <= 470:
             self.direction = "right"
@@ -79,9 +79,6 @@ game = True
 clock = time.Clock()
 FPS = 60
 
-mixer.init()
-mixer.music.load()
-mixer.music.play()
 
 hp = 3
 
@@ -121,6 +118,12 @@ while game:
         display.update()
         sleep(1)
         game = False
+    player.moving()
+    enemy.moving()
+        
+    display.update()
+    clock.tick(FPS)
+
     player.moving()
     enemy.moving()
         
